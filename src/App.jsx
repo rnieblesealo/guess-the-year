@@ -80,7 +80,7 @@ export default function App() {
 
   return (
     <div className="w-screen h-screen flex items-center justify-center flex-col gap-3">
-      <h1 className="text-white text-4xl font-bold">Guess the Artist!</h1>
+      <h1 className="text-white text-4xl font-bold">Guess the Year!</h1>
       <div className="text-center">
         <p className="flex items-center justify-center gap-2 text-md text-white">Can you guess the release year of these
           <span className="outline rounded-lg p-1 pl-2 pr-2 font-bold text-white"> {cardInfo.length} </span>
