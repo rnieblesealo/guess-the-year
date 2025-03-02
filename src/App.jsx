@@ -38,9 +38,12 @@ export default function App() {
               className="w-full aspect-square"
             />
           </div>
-          <div className="text-center text-white flex items-center text-3xl font-bold justify-center bg-gray-900 rounded-2xl overflow-hidden backface-hidden absolute w-full h-full rotate-x-180">
+          <div className="text-center text-gray-500 flex items-center text-3xl font-bold justify-center bg-gray-900 rounded-2xl overflow-hidden backface-hidden absolute w-full h-full rotate-x-180">
             <div className="flex flex-col">
-              <span className="text-5xl">
+              <span className="text-5xl text-white">
+                {props.releaseYear ? props.releaseYear.toString() : "..."}
+              </span>
+              <span className="text-3xl">
                 {`"${props.albumName}"`}
               </span>
               <span className="text-2xl font-normal text-gray-500">
@@ -56,6 +59,7 @@ export default function App() {
   const [imgSrc, setImgSrc] = useState(null)
   const [albumName, setAlbumName] = useState(null)
   const [artistName, setArtistName] = useState(null)
+  const [releaseYear, setReleaseYear] = useState(null)
 
   function newCard() {
     const randomCard = cardInfo[Math.floor(Math.random() * cardInfo.length)]
@@ -63,6 +67,7 @@ export default function App() {
     setImgSrc(randomCard.imgSrc)
     setAlbumName(randomCard.albumName)
     setArtistName(randomCard.artistName)
+    setReleaseYear(randomCard.releaseYear)
 
     // set accent color in css!
     document.documentElement.style.setProperty("--accent-color", randomCard.color)
@@ -77,7 +82,7 @@ export default function App() {
     <div className="w-screen h-screen flex items-center justify-center flex-col gap-3">
       <h1 className="text-white text-4xl font-bold">Guess the Artist!</h1>
       <div className="text-center">
-        <p className="flex items-center justify-center gap-2 text-md text-white">Can you guess the artist of these
+        <p className="flex items-center justify-center gap-2 text-md text-white">Can you guess the release year of these
           <span className="outline rounded-lg p-1 pl-2 pr-2 font-bold text-white"> {cardInfo.length} </span>
           albums?
         </p>
@@ -86,6 +91,7 @@ export default function App() {
         imgSrc={imgSrc}
         albumName={albumName}
         artistName={artistName}
+        releaseYear={releaseYear}
       />
       <div className="bg-transparent text-white flex items-center justify-center flex-row rounded-2xl gap-5">
         <ControlButton text="Another!" graphic={<RiDiceLine />} onClick={newCard} />
