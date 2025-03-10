@@ -1,6 +1,6 @@
 import cardInfo from "./cardInfo"
 import clsx from "clsx"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { RiDiceLine } from "react-icons/ri";
 
 export default function App() {
@@ -78,6 +78,69 @@ export default function App() {
     newCard()
   }, [])
 
+  const Date = () => {
+    const [digits, setDigits] = useState(['', '', '', ''])
+    const [focusedIndex, setFocusedIndex] = useState(0) // keep track of focus
+    const inputRefs = useRef([]) // keep references to input elems
+
+    // ensure entered key is a digit by preventing default beh
+    const onKeyDown = (e) => {
+      const keyCode = e.key
+      if (!(keyCode >= 0 && keyCode <= 9)) {
+        e.preventDefault()
+      }
+    }
+
+    // update values
+    const onChange = (e, index) => {
+      // looks like state setter first param is existing val
+      setDigits((preDigits) => {
+        const newDigits = [...preDigits]
+
+        // pass number if able to parse one, otherwise pass text
+        if (parseInt(e.target.value)) {
+          newDigits[index] = parseInt(e.target.value)
+        } else {
+          newDigits[index] = e.target.value
+        }
+
+        return newDigits
+      })
+    }
+
+    // move to next box on input
+    const onKeyUp = (e, index) => {
+      if (parseInt(e.key) && index < digits.length - 1) {
+        // update focus index to next
+        setFocusedIndex(index + 1)
+
+        // ensure 
+        if (inputRefs && inputRefs.current && index === focusedIndex) {
+          inputRefs.current[index + 1].focus()
+        }
+      }
+    }
+
+    const inputFields = digits.map((digit, index) => {
+      return (
+        <input
+          key={`index-${index}`}
+          ref={(el) => el && (inputRefs.current[index] = el)}
+          type="text"
+          value={String(digit)}
+          maxLength={1}
+        />
+      )
+    })
+
+    return (
+      <div>
+        <p>Focused: {focusedIndex}</p>
+        {inputFields}
+      </div>
+    )
+  }
+
   return (
     <div className="w-screen h-screen flex items-center justify-center flex-col gap-3">
       <h1 className="text-white text-4xl font-bold">Guess the Year!</h1>
@@ -93,8 +156,11 @@ export default function App() {
         artistName={artistName}
         releaseYear={releaseYear}
       />
-      <div className="bg-transparent text-white flex items-center justify-center flex-row rounded-2xl gap-5">
-        <ControlButton text="Another!" graphic={<RiDiceLine />} onClick={newCard} />
+      <div className="flex items-center justify-center h-min-content gap-3">
+        <Date />
+        <div className="bg-transparent text-white flex items-center justify-center flex-row rounded-2xl gap-5">
+          <ControlButton text="Another!" graphic={<RiDiceLine />} onClick={newCard} />
+        </div>
       </div>
     </div>
   )
