@@ -1,36 +1,39 @@
-# Web Development Project 2 - *Guess the Year!*
+# Web Development Project 3 - *Guess the Year Part II!*
 
-This web app is a small flashcards game where the player is meant to guess the release year of the albums shown.
+This web app improves upon the originally implemented card game for part I by adding interactivity. Users are now able to input answers and check whether they're right or wrong! 
 
 Submitted by: **Rafael Niebles**
 
-Time spent: **3** hours spent in total
+Time spent: **6** hours spent in total
 
 ## Required Features
 
 The following **required** functionality is completed:
 
-- [x] **The title of the card set and some information about it, such as a short description and the total number of cards are displayed**
-- [x] **A single card at a time is displayed, only showing one of the components of the information pair**
-- [x] **A list of card pairs is created**
-- [x] **Clicking on the card shows the corresponding component of the information pair**
-- [x] **Clicking the next button displays a random new card**
+- [x] The user can enter their guess in a box before seeing the flipside of the card
+- [x] Clicking on a submit button shows visual feedback about whether the answer was correct or incorrect
+- [x] A back button displayed on the card can be used to return to the previous card in a set sequence
+- [x] A next button displayed on the card can be used to navigate to the next card in a set sequence
 
 The following **optional** features are implemented:
 
-- [x] Cards contains images in addition to or in place of text
-- [x] Cards have different visual styles such as color based on their category
-    > The app's accent color changes based on the current card! 
+- [x] The user inputs their answer in a special component tailored for digit-wise input, akin to the iPhone's passcode UI, that snappily shifts focus between number boxes as needed. 
 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented required features:
 
-![demo](./github/demo.gif)
+![demo](./github/demo-new.gif)
 
 ## Notes
 
-The most challenging part was the CSS for the flip card effect. I took the time to try and figure it out myself to practice styling, and I learned a lot about 3D transformations in CSS!
+Implementing the passcode-like year input was very, very difficult, but I learned a *lot* about React state-setting, React references, and element focus!
+
+Initially, I drew up an approach that separated the input, state update, and focus-shifting functionality between `keyDown`, `onChange`, and `keyUp` handlers, but that caused some keystrokes to not be captured. 
+
+After much trial and error, I figured out how to make it snappy and responsive by limiting input capture to `keyDown` only, since what was causing input capture fails was `onKeyUp` failing to run before we finished the previous keystroke.
+
+I also learned that `setState` is *not* synchronous, which caused issues I first dealt with by incorporating safeguards but then just avoided altogether by not using a state-based index at all. 
 
 ## License
 
