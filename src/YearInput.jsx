@@ -1,13 +1,6 @@
-import { useState, useRef } from "react"
+import { useRef } from "react"
 
-export default function YearInput() {
-  const [values, setValues] = useState([
-    '',
-    '',
-    '',
-    ''
-  ])
-
+export default function YearInput({ values, setValues }) {
   const inputElemRefs = useRef([]) // stores digit input boxes
 
   /** Disallow behavior associated to keys we don't care about when pressed. */
@@ -72,8 +65,8 @@ export default function YearInput() {
   })
 
   return (
-    <div className="flex gap-1">
+    <form className="flex gap-1">
       {inputBoxes}
-    </div>
+    </form>
   )
 }

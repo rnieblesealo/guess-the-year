@@ -3,7 +3,7 @@ const cardInfo = [
     imgSrc: "7th-street.jpg",
     artistName: "Fake Tides",
     albumName: "7th Street",
-    releaseYear: 2024,
+    releaseYear: 2014,
     color: "#403224"
   },
   {
